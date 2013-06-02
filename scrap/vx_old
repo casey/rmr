@@ -1,0 +1,330 @@
+#!/usr/bin/env python3.3
+
+# Welcome to the vx C++ linear algebra library generator!
+#
+# It is genuinely horrible.
+
+# todo:
+#   proper indentation
+#   other types: double, int, short, bool
+#   allow parameterizing names
+#   allow parameterizing types
+#   allow parameterizing lengths
+#   pretty printing
+#   fix indentation
+#   put newlines appropriately
+#   c++ for() should iterate over vector/matrix elements
+#   add all swizzles
+#   allow generating a header-only library
+#   safe version with fatal asserts and dangerous version with no asserts
+#   add header that tells people not to muck with generated code
+#   pointer intiializers: v4(float (&)[4]);
+#                         v4::v4(float (&p)[4]) : __{p[0], p[1], p[2], p[3]} { }
+#   add a whatever constructor
+#   add matrixes
+#   add quat
+#   unary minus and plus
+#   modulo
+#   all comparison operators
+#   component-wise .eq() operators
+#   bit-wise boolean stuff for integral types
+#   parameterize arg names: s, v, etc
+#   should I use && or & for operator==?
+#   benchmarks
+#   should extend really extend a vec3 with 1.0?
+#    v2 v2::heading(float angle) { return v2(rmr.cos(angle), rmr.sin(angle)); }
+#   v2 v2::bits(int x) { return v2(x & 1, (x >> 1) & 1                            ); }
+#  v3 v3::bits(int x) { return v3(x & 1, (x >> 1) & 1, (x >> 2) & 1              ); }
+#  v4 v4::bits(int x) { return v4(x & 1, (x >> 1) & 1, (x >> 2) & 1, (x >> 3) & 1); }
+#  remove all dependencies
+#  make blob work like this: "header @@ source @@ test"
+
+# what is horrible?
+#   add the concept of node namespaces to avoid needing explicit subs
+#   excessive usage of blob
+#   all the duplication of decls and defns
+#   add some descriptive helpers commas, referizers
+#   only allow all uppercase subs
+#   special syntax for header-only semicolon
+#   switch to single sub function
+#   die on unknown capital letter sequences
+
+import sys, inspect, re
+
+def sub(s, d):
+  def repl(match):
+    g0  = match.group(0)
+    return str(d.get(g0, g0))
+  return re.sub('[A-Z][A-Z_]*', repl, s)
+
+def lsub(s):
+  frame = inspect.currentframe()
+  d     = frame.f_back.f_locals
+  return sub(s, d)
+
+def die(msg):
+  log(msg)
+  exit(1)
+
+def log(msg):
+  sys.stderr.write("%s\n" % msg)
+
+class node:
+  def header(self):
+    yield from ()
+
+  def source(self):
+    yield from ()
+
+  def test(self):
+    yield from ()
+
+  def sub(self, s):
+    return sub(s, self.__dict__)
+
+class root(node):
+  def __init__(self, children):
+    self.children = children
+  def header(self):
+    yield '#import "hash.h"'
+    for child in self.children:
+      yield from child.header()
+  def source(self):
+    yield '#import "vx.h"'
+    yield '#import "rmr.h"'
+    for child in self.children:
+      yield from child.source()
+  def test(self):
+    yield '#import "test.h"' 
+    for child in self.children:
+      yield from child.test()
+
+class using(node):
+  def __init__(self, lhs, rhs):
+    self.LHS = lhs
+    self.RHS = rhs
+  def header(self):
+    yield self.sub('using LHS = RHS;')
+
+class struct(node):
+  def __init__(self, name, children):
+    self.NAME     = name
+    self.children = children
+  def header(self):
+    yield self.sub('struct NAME {')
+    for child in self.children:
+      yield from child.header()
+    yield '};'
+  def source(self):
+    for child in self.children:
+      yield from child.source()
+  def test(self):
+    yield self.sub('TEST(NAME) {')
+    for child in self.children:
+      yield from child.test()
+    yield '}'
+
+class field(node):
+  def __init__(self, decl, default=None):
+    self.DECL    = decl
+    self.DEFAULT = default
+  def header(self):
+    if self.DEFAULT:
+      yield self.sub('DECL = DEFAULT;')
+    else:
+      yield self.sub('DECL;')
+
+class blob(node):
+  def __init__(self, h = '', s = '', t = '', **kwargs):
+    self.h      = h
+    self.s      = s
+    self.t      = t
+    self.kwargs = kwargs
+  def header(self):
+    yield sub(self.h, self.kwargs)
+  def source(self):
+    yield sub(self.s, self.kwargs)
+  def test(self):
+    yield sub(self.t, self.kwargs)
+
+def vectors():
+  for i in [4, 3, 2]:
+    yield from vector(i)
+
+def private():
+  return blob('public:')
+
+def constructor(name,  parameter_names, parameter_types, body):
+  return blob(
+      'NAME(DECL_PS);',
+      'NAME::NAME(DEFN_PS) BODY',
+      '',
+      NAME    = name,
+      BODY    = body,
+      DECL_PS = ', '.join(parameter_types),
+      DEFN_PS = ', '.join(' '.join((t, n)) for (t, n) in zip(parameter_types, parameter_names))
+  )
+
+namesets = [
+  'x y z w'.split(),
+  'r g b a'.split(),
+  's t p q'.split()
+]
+
+ops = '/ * - +'.split()
+
+default_nameset = namesets[0]
+
+def vector(l):
+  L     = l
+  NAME  = lsub('vL')
+  field_names = default_nameset[0:l]
+
+  def members():
+    # using statement
+    yield using('_', lsub('NAME&'))
+
+    # no argument constructor
+    yield constructor(NAME, [], [], ': __{{}} { }')
+  
+    # value constructor
+    pts  = ['float'] * l
+    pns  = field_names
+    pnsc = ','.join(pns);
+    PNSC = pnsc
+    body = lsub(': __{PNSC} { }')
+    yield constructor(NAME, pns, pts, body)
+
+    # single value getters and setters
+    for nameset in namesets:
+      I = 0
+      for vname in nameset[0:l]:
+        VNAME = vname
+        # const getter
+        yield blob('float VNAME() const;',
+                   'float NAME::VNAME() const { return __[I]; }',
+                   '', NAME = NAME, VNAME = VNAME, I = I)
+        # non-const getter
+        yield blob('float& VNAME();',
+                   'float& NAME::VNAME() { return __[I]; }',
+                   '', NAME = NAME, VNAME = VNAME, I = I)
+        # setter
+        yield blob('_ VNAME(float);',
+                   'NAME& NAME::VNAME(float s) { __[I] = s; return *this; }',
+                   '', NAME = NAME, VNAME = VNAME, I = I)
+        I += 1
+
+    # mutable data pointer getters
+    yield blob('float* data();',
+               'float* NAME::data() { return __; }',
+               NAME = NAME)
+    
+    # const data pointer getter
+    yield blob('const float* data() const;',
+               'const float* NAME::data() const { return __; }',
+               NAME = NAME)
+
+    # operators. god help me
+    for op in ops:
+      # scalar op
+      OP      = op
+      OP_NAME = lsub('operatorOP')
+      DO_IT = ', '.join('%s() %s s' % (n, op) for n in field_names)
+      yield blob(lsub('NAME OP_NAME(float) const;'),
+                lsub('NAME NAME::OP_NAME(float s) const { return NAME(DO_IT); }'))
+
+      # scaler op=
+      OP_EQ = lsub('operatorOP=')
+      yield blob(lsub('NAME& OP_EQ(float);'),
+                 lsub('NAME& NAME::OP_EQ(float s) { return *this = *this OP s; }'))
+
+      # vector op
+      OP_NAME = lsub('operatorOP')
+      DO_IT = ', '.join('%s() %s v.%s()' % (n, op, n) for n in field_names)
+      yield blob(lsub('NAME OP_NAME(const NAME&) const;'),
+                lsub('NAME NAME::OP_NAME(const NAME& v) const { return NAME(DO_IT); }'))
+
+      # vector op=
+      OP_EQ = lsub('operatorOP=')
+      yield blob(lsub('NAME& OP_EQ(const NAME&);'),
+                lsub('NAME& NAME::OP_EQ(const NAME& v) { return *this = *this OP v; }'))
+
+    # operator==
+    DO_IT = ' & '.join('%s() == v.%s()' % (n, n) for n in field_names)
+    yield blob(lsub('bool operator==(const NAME) const;'),
+              lsub('bool NAME::operator==(const NAME v) const { return DO_IT; }'))
+
+    # operator!=
+    yield blob(lsub('bool operator!=(const NAME) const;'),
+              lsub('bool NAME::operator!=(const NAME v) const { return !(*this == v); }'))
+
+    # extend
+    if l < 4:
+      NXT = 'v%s' % (l + 1)
+      STUFF = ', '.join('%s()' % n for n in field_names)
+      yield blob(lsub('NXT extend(float);'),
+                 lsub('''NXT NAME::extend(float s) { 
+  return {STUFF, s};
+}'''))
+
+    # magnitude
+    SQUARES = ' + '.join("%s() * %s()" % (n, n) for n in field_names)
+    yield blob(lsub('float magnitude() const;'),
+               lsub('''float NAME::magnitude() const { 
+  return rmr.sqrt(SQUARES);
+}'''))
+
+    # hash
+    L     = l
+    STUFF = ',\n'.join('(x >> bits * %s & mask) / float(mask)' % n for n in range(l))
+    yield blob(lsub('static NAME hash(hash_t);'),
+                lsub('''NAME NAME::hash(hash_t x) {
+  constexpr size_t bits = (sizeof(size_t) * CHAR_BIT) / L;
+  constexpr size_t mask = ((size_t(1) << (bits + 1)) - 1);
+  return {
+    STUFF
+  };
+}'''))
+
+    # normalize
+    yield blob(lsub('NAME& normalize();'),
+               lsub('''NAME& NAME::normalize() { 
+  float l = magnitude();
+  l <= 0 && rmr.die("NAME.normalize: zero magnitude");
+  *this /= l;
+  return *this; 
+}'''))
+  
+    # random
+    yield blob(lsub('static NAME random();'),
+               lsub('NAME NAME::random() { return random(0, 1); }'))
+    yield blob(lsub('static NAME random(float max);'),
+               lsub('NAME NAME::random(float max) { return random(0, max); }'))
+    STUFF = ', '.join('rmr.random(min, max)' for i in range(l))
+    yield blob(lsub('static NAME random(float min, float max);'),
+               lsub('NAME NAME::random(float min, float max) { return NAME(STUFF); }'))
+
+    # private label
+    yield private()
+
+    # data array field
+    L = l
+    yield field('float __[%s]' % L)
+
+  yield struct(NAME, members())
+
+cmd = sys.argv[1]
+
+r = root(vectors())
+
+g = {
+  'header': r.header(),
+  'source': r.source(),
+  'test'  : r.test(),
+}
+
+if cmd in g:
+  for line in g[cmd]:
+    print(line)
+else:
+  die("unrecognized command: %s" % (cmd))

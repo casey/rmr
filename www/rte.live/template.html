@@ -1,0 +1,31 @@
+<div>
+  <canvas class="main"></canvas>
+  <div class="opening"></div>
+  <div class="mask"></div>
+  <div class="grid"></div>
+  <div class="line">
+    <span class="pre">{{a0}}</span>
+    <span class="pre">{{a1}}</span>
+    <span class="pre">{{a2}}</span>
+    <span class="pre">{{a3}}</span>
+    <span class="pre">{{a4}}</span>
+    <span class="pre">{{a5}}</span>
+
+    {{time | date:'HH:mm:ss'}}.{{beat}}
+
+    {{framerate}}ms
+
+    [{{flags}}]
+
+    {{left}}.{{progress}}.{{right}}
+
+    {{gain}}db
+    b{{buckets | HEX}}
+
+    <span class="command" ng-class="{output: !!(output || deadReason)}">
+      {{deadReason}}{{line}}
+    </span>
+  </div>
+  <div class="cheat" ng-show="cheat">
+  </div>
+</div>

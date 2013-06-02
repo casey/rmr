@@ -1,0 +1,23 @@
+#define __ASSERT_MACROS_DEFINE_VERSIONS_WITHOUT_UNDERSCORES 0
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+#endif
+
+#import <stdint.h>
+typedef int8_t       i8;
+typedef int16_t      i16;
+typedef int32_t      i32;
+typedef int64_t      i64;
+typedef uint8_t      u8;
+typedef uint16_t     u16;
+typedef uint32_t     u32;
+typedef uint64_t     u64;
+typedef unsigned int uint;
+typedef intptr_t     iptr;
+typedef uintptr_t    uptr;
+typedef float        f32;
+typedef double       f64;
+
+struct twitch_t;
+typedef struct twitch_t twitch_t;

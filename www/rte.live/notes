@@ -1,0 +1,225 @@
+copenhagen/sund roads traversal
+
+Transient one off events
+
+are there any other notes?
+
+game of risk that changes on the beat
+
+brutalist structure that builds up randomly to infinity
+
+paper cut-out tibetan gods that move their hands and swap faces
+
+dirty, stained mask: blood, coffee, dirt
+
+browser
+-- communicate via websockets
+-- communicate via local storage
+
+key/value text pairs
+
+make my own mix
+- ten and tracer
+- nagz
+- chronkite
+- andrew pekler
+- i am robot and proud
+- william fields
+- electric company
+- forrest fang
+
+
+make timelapse video
+
+email aya, nicole, johnny, 3am devices
+email ryan about motion control, advice
+
+
+I know the direction I'm headed in.
+
+live
+unique
+full custom
+original audio/visual jam session sessions
+probably around 3 hours
+
+i can start with one song
+then two songs
+then three songs
+i like live
+why not use it
+
+what was the main problem? i got bored. i did the first two hours without even being aware of the time, but then i looked down at 11pm with three more hours to go and just lost my will to live. i need stuff to do, stuff to keep me occupied, and enough material to keep mixing it up throughout the gig.
+
+- some kind of live coding. that always makes me happy and would let me fool around once i get bored. shader coding is probably the way to go, just so i don't need to worry about introducing performance problems. 2d fragment shaders, fragment shaders that get plastered onto 3d objects, particle system step functions
+
+- a few really polished modes that i can just let go.
+
+- a few modes that will work with just simple interaction. i feel like the buffer was the stand-out this time. just putting a mask over it or putting it in the middle of the 3d scene and resetting/reorienting to the beat really make it work and felt fresh even going for 5+ minutes.
+
+- a more expressive interface. something like drag and drop nodes into stacks and cross-fading, etc, would probably be better
+
+- also keep in mind that the really really simple stuff worked the best. big mask shapes, stepping through the sizes.
+
+- something that helps me better organize how much time to spend on what. the timer was indispensable, but i think i could do better.
+
+i would like to be able to trigger a major transition:
+- whenever the song makes a significant shift
+- whenever the song changes
+- whenever the dj changes
+
+try making a random ass dj mix
+or a really simple song in live
+- bouncy 4/4 base, slightly off tempo double beat
+- dead simple beat, just use the drum patterns from the book
+- retarded simple chords, rip something from somewhere
+
+
+what stops it from just being pretty pixels on a screen? the timescales:
+- individual samples
+- waveform
+- eq
+- beats
+- song progression
+
+just gifs
+
+some way of involving partiers
+- pick a color
+- draw a shape
+
+just giant skull that steps through color scheme ever 5 minutes
+SKULL OF AUTOPILOT
+
+scrolling waveform
+
+1/2, 1/4, 1/8, 1/16, 1/32, 1/64 measures
+
+play wipeout
+
+if I make a mix in ableton I can create a perfect hour. a scary, complex, surprising, in time, live hour.
+
+reverse camera direction button
+v2
+  beat always goes, but can link it with patterns and other effects on the fly
+  distortion effects
+    screen bounces with the beat
+  zoom out from the earth to space continuously
+  add delay adjustment
+  jellyfish
+  grid of squares, beat progresses from square to square
+  all modes are visible in all the squares
+  blood spattering
+  glass shattering
+  giant head
+    max headroom
+    tong-nou
+    nods to the beat
+    mouth moves to the beat
+    mouth actually moves to the audio
+  follow roads randomly around a map
+  something that progresses automatically over the course of minutes
+  masks with complex blending
+  additive blending
+  lots of abstract art
+  something weird and still to start
+  zine look
+  Text progression mode
+  better interface, stack oriented
+  real compositing and alpha blending
+  5 minutes of music-video like coordination
+  better post-processing
+    crazy dithering
+    static
+  video overlays
+  reactivity at all levels
+  better beat event input
+  easier integration of new modes
+  keep everything on the upper wall
+  but put something on the left wall
+  - what about the interface? or the code?
+  two hours of auto-pilot, and then 3 hours of performance?
+  when are there the most people on the dance floor?
+
+
+glyph + ex mask
+zoom way way out from circle/square/x for float imprecision artifacts
+switch between circle and square
+go get a drink, go to the bathroom, dance a little bit
+jack the gain way up and down on the wave/freq visualizations
+go chill in space for a while
+mix field/dotsphere/nebula/spirals, especially while out of view
+manually control the camera while resetting position
+fly around spirals
+count 4/4, 16 in binary
+rock the buffer
+CTRL-T for finale
+EXPLORE
+
+
+flames shooting up from the DJ
+four boxes, highlight rotates on the beat
+a bunch of exclaimation marks
+every mode previewed in a box, 64 boxes
+huge words, either flash by on the beat
+1/2/3/4 flashing by
+phrase flashing by
+dual interference pattern from two corners
+huge face kilroy style
+left to right vertical split shifting
+(remember to doodle a little)
+have one transition per song in the entire set
+how do i let the camera support an arbitrary number of layers?
+live audio effects pipeline, smoothing, "pump", gain, etc.
+one-off event scheduling
+
+keep the visuals just off everyone on the dance floor
+
+completely random DJ sets
+
+i could also share the load with other visualists
+- ryan
+- carr
+- brandon liu
+- sabina
+
+
+beat triggered events
+visual stacks
+audio processing effects
+prototype mouse/keyboard driven interface, then switch to either cintiq, touchscreen, or tablet. audience gets multiple views:
+
+foot controllers:
+krigg
+jsb
+fragpedal
+softstep
+
+- main view
+- touch screen composition mode
+- code and live coding preview
+- everything is linux or freebsd + xmonad for maximum configurability
+- easy to boot from a CD in case anything goes wrong
+
+touchscreen interface has slots which represent beat actions:
+music is usually 4/4, so their are multiple tiers of slots
+1  - every beat
+4  - every 4th beat
+16 - every 16th beat
+for a total of 21 slots. any number of actions can be dragged into each slot
+some way of resetting "1st" beat
+possible slot events - invert, zoom out, zoom in, change mode, change mask
+"backward" mode - go backward through previous modes
+schedule the next big change, but trigger it manually
+
+set up next stack and next 
+
+some kind of energy slider
+
+what happens if the dj plays something with a weird? use every beat only events, some way of changing to a different time signature, reset to first beat early
+
+
+right now the goal that i have in mind
+is a fully live, custom performance
+
+giant mother fucking eye looking at everyone

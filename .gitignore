@@ -1,0 +1,10 @@
+Icon
+.tup
+node_modules
+dist
+s3
+tmp
+.DS_Store
+out
+.lock-waf*
+bin/.waf*

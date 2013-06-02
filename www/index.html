@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>rmr</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='srv/favicon.ico' rel="shortcut icon">
+    <link href='index.css' rel="stylesheet">
+    <script src='index.js'></script>
+  </head>
+  <body>
+    <script>
+      if (!window.chrome) {
+        document.write([
+          '<div class="alert alert-warning">',
+          '<strong>Warning!</strong> Really sorry to be lame, but this thing only works with',
+          '<a href="http://www.google.com/chrome">Google Chrome</a>.</div>'].join('\n'));
+        document.body.style.backgroundImage = "url('srv/fallback.jpg')";
+        document.body.style.overflow = 'hidden';
+        }
+    </script>
+    <div ng-view></div>
+  </body>
+</html>
+<!-- Love, Casey -->

@@ -1,0 +1,56 @@
+#!/usr/bin/env python
+
+from waflib import Utils
+from waflib.TaskGen import after, feature
+
+@after('apply_link')
+@feature('cxx')
+def process_pch(self):
+  if getattr(self, 'pch', None):
+    node = self.path.find_resource(self.pch)
+    if not node:
+      raise Utils.WafError('could not find pch file: %r' % self.pch)
+    for task in self.compiled_tasks:
+      task.dep_nodes.append(node)
+      task.env.append_value('CXXFLAGS' , ['-include-pch', node.abspath()])
+
+pch_rule = '${CXX} -x c++-header ${CXXFLAGS} ${FRAMEWORKPATH_ST:FRAMEWORKPATH} ${CPPPATH_ST:INCLUDES} ${DEFINES_ST:DEFINES} ${CXX_SRC_F}${SRC} -c -o ${TGT}'
+
+def options(opt):
+  opt.load('compiler_cxx')
+
+def configure(cfg):
+  cfg.env.append_value('CXX', '/opt/local/bin/clang++-mp-3.5')
+  cfg.env.append_value('CXXFLAGS' , '''
+    -std=c++1y -stdlib=libc++ -g -O0 -Werror -pedantic -Wfatal-errors -Winvalid-pch -Wall -pedantic -Wextra
+    -Wno-deprecated-register -Wno-variadic-macros -Wno-unused-variable -Wno-unused-comparison
+    -Wno-import-preprocessor-directive-pedantic -Wno-sign-compare -Wno-unused-parameter -Wno-missing-braces
+    -Wno-unused-value -Wno-vla-extension -D GLFW_INCLUDE_GLCOREARB '''.split())
+  cfg.env.append_value('LINKFLAGS', '-std=c++1y -rdynamic -stdlib=libc++'.split())
+  cfg.env.append_value('INCLUDES' , '/opt/local/include /opt/local/include/eigen3 ../src'.split())
+  cfg.load('compiler_cxx')
+
+def build(bld):
+  gen_sources = []
+  objects = []
+
+  bld(rule = pch_rule, source = 'common.h', target = 'common.h.gch', name = 'pch', includes = '. ..')
+
+  for lib in 'glfw png portaudiocpp'.split():
+    bld.read_shlib(lib, ['/opt/local/lib']);
+    objects.append(lib)
+
+  for combined in bld.path.ant_glob('*.s++'):
+    source = combined.change_ext('.c++')
+    header = combined.change_ext('.h')
+    gen_sources.append(source)
+    bld(rule = '../bin/section header < ${SRC} > ${TGT}', source = combined, target = header)
+    bld(rule = '../bin/section source < ${SRC} > ${TGT}', source = combined, target = source)
+
+  for source in bld.path.ant_glob('*.c++') + gen_sources:
+    s = source.name
+    t = source.change_ext('').name
+    bld.objects(source = s, target = t, includes = '.', pch = 'common.h.gch')
+    objects.append(t)
+
+  bld(features  = 'cxx cxxprogram', target = 'main.out', use = objects, framework = 'OpenGL')

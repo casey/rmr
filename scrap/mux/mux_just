@@ -1,0 +1,10 @@
+mux-real: build
+	@./bin/run ./tmp/ixr --width=768 --height=432 --route=mux \
+		--username=rodarmor --password=gv3fqciqNij6nc --client-secret=hpv7s4ttyuzhrfy2hjhr2hrwdp5zhk
+
+mux-test: build
+	@./bin/run ./tmp/ixr --width=256 --height=144 --route=mux \
+		--username=romrador --password=a8d4e09d92b413b60f65e --client-secret=hpv7s4ttyuzhrfy2hjhr2hrwdp5zhk
+
+get-twitch:
+	cd dat && git clone --depth=1 git@github.com:twitchtv/sdk-dist.git twitch-sdk

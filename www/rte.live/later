@@ -1,0 +1,198 @@
+set up the next stack and then transition to it
+
+beat events need to always be on time
+hook up the beat to a kick pedal
+
+better text banner
+
+orbit mode
+move camera vantage point 90 degrees in some direction
+
+really pre-process colors
+figure out how to add named colors in fragment shaders
+
+exploding in all directions
+
+black out mode
+
+gif player - just a bunch of gifs
+  find more gifs
+  make them not change tiling mode
+  make them not flash white
+  make them in sets of 4
+
+plants - pulse
+lightning flashes - top to bottom
+buffer - coordinate the buffer with the audio
+field - cubes rotate, scale, or change color with audio
+get glow and other post-processing effects working correctly
+
+some kind of video game where the character's movements can be in time to the audio
+
+emitter
+  zooming through shapes
+  triangles, circles, squares
+  solid and wireframe
+  forwards/backwards/adjust speed
+
+junk
+  shitload of junk
+  light pulses outward/inward
+
+super stressful
+- can fuck up and break everything
+- i can fuck up and introduce weird non-local failures
+  over allocation of dom nodes
+  too much gc pressure
+- i really have to create a lot of content for the level of quality that i want
+- any one part of my setup can get fucked up and i'm totally fucked
+  laptop hardware, laptop software, chrome, joystick, etc etc
+both hard and helpful to have a deadline
+hard to work alone
+
+not having a deadline would solve a lot
+  it's done when it's done.
+  no getting pressed for time and starting to hack things together
+  plenty of time to test and guard against regressions
+
+what's left?
+  working alone
+
+what would i do if i had infinite time to refactor?
+
+come up with a more flexible abstraction over left/right/layers
+- left and right can be loaded independantly
+- or there is a stack of layers, allow push, pop, reordering
+- figure out exactly how different modes blend together
+  - alpha blending, depth buffer, draw order
+
+come up with a better interface to all kinds of modes
+come up with a better way of allowing/disallowing garbage
+think carefully about how to load DOM nodes in the same way that i load scene graph nodes
+create a factory interface that all factories implement
+better alpha blending
+better camera compositing
+make rte.live controller less of an unholy mess
+figure out some kind of optional type checking
+improve cmd
+dynamically hook up beat to different things
+come up with better data flow:
+  waveform data
+  frequency data
+  beat events
+  music "intensity"
+
+would i also want to make it a native c++ or nacl app?
+- probably not, performance is unpredictable by workable
+- the web apis are pretty powerful
+
+
+get camera for pixel under mouse
+additive blending
+seconds since mode start
+waveform preview
+eq preview
+2d - x/y offset, rotation, zoom (cumulative? reset per mode?)
+discrete events - x/o/^/[] - down/pressed/time since last
+state - 0 to infinity in +1 increment, w/state local mode
+co-existing transitions, blend nodes with alpha value
+experiment with stereo audio data
+
+types
+  ;;;;; figure out really principled sandboxing and performance techniques to enable
+  ;;;;; all the following types of modes to co-exist
+  html - populate the document
+  node - populate a specific dom node
+  text - supply text to be displayed
+  resource - supply images/gifs/videos to be displayed
+  video - play a video/gif and jump back and forth
+  canvas - do whatever on a canvas
+  rmr.node - populate a rmr.node with geometry
+  fragment - draw some pixels with a fragment shader
+  particle system - particle sytem with cross input (step performed by shader)
+  vbo - fill a vbo with data
+
+particle system
+  free points
+  flat height-map points
+  sphere displacement points
+  line-segments
+indexed line rendering
+  store all your vertices of points
+  create and delete connections between points
+organic distortion
+2d cut-out style
+3d objects with surrounding clouds of points - http://cabbibo.com/
+layers from top to bottom: space, atmosphere, clouds, city, underground, DJ in hell/underground cave
+procedural city - proc - procedural universe
+  starscape
+  planet
+  landscapes, mountains, etc
+  multiplied cell-noise displacement
+  normal/futuristic city
+  floating base, like in grey
+
+  build up phase - show the individual elements
+  start adding them to the world one by one
+  chill out in the world for a bit
+  tear down phase - remove/glitch it until there's nothing left
+live-coded shader chain
+fragment shader cube
+tetris
+budgeted l-system
+rotary phone dial moving with the beat
+coordinated by applescript macos music video
+text falling from the sky - and they fell from the kingdom of heaven
+box2d boxes with gravity, repulsion, attraction
+bugs - warp, stars, infinity
+planes rendering bug
+drawing
+  brush strokes / or erase
+  red brush is the origin
+  real-time distance calculation
+    can go every n frames, or break up work into chunks, web worker, etc
+  move the beat origin to a particular pixel
+  shapes
+    question mark
+    vertical lines
+    horiztonal lines
+  team up with an artist who can do the drawing
+  let conway's game of life run starting on beat
+atom with spinning particles, activity scaled to audio
+cellular automata
+  1d/2d life, smoothlife
+  time + disruption controlled by beat/input/etc
+colored tessalated triangles like oscura stage
+like idk http://www.boredpanda.com/amazing-places/
+sphere of small colored triangles
+spinning cube/sphere/shape - deform vertex positions to audio
+animal head sequence, triggered by button presses, "FUCK YOU I'M WOLF", some kind of waveform/eq action
+kick drum pedal for beat
+animal outlines
+paper mask
+  just a piece of paper and a string to tie it. cut shape + eyes before every show
+  draw a mouth
+skull pallette swap in time to beat
+http://www.youtube.com/watch?v=Z-3z3DNUGiE
+some better way of showing all available modes
+some better way of walking through all modes
+os x apple-scripted music video
+type in and graph functions in real time
+arbitrary masks
+  + invert mask
+  + set back-channel color
+  + change mask blend mode
+
+proper line based waveform
+
+switch to a layer and channel system
+- every mode is a layer that interacts with other layers in its stack
+- every stack can serve as an input channel to another stack
+- drag/drop layers into and out of stacks
+- drag channel flows from one stack to another and to the output
+- each instance of every layer has its own controls
+
+franchise
+  let anyone set up a projector with visuals
+  chrome, audio input, joystick for control
+http://www.wired.com/design/2013/10/psychedelic-digital-paintings-made-entirely-with-code/

@@ -1,0 +1,16 @@
+- syphon framework
+
+pkg/bin
+
+- xcode
+- xcode command line tools
+- soundflower
+
+- macports
+. tup
+. clang-3.5
+. glfw
+. libpng
+. portaudio
+. python33
+. yajl

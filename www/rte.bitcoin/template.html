@@ -1,0 +1,31 @@
+<div>
+  <div class="base" ng-init="show=false">
+    <div class="overlay">
+      <div class="wtf" ng-click="show = true" ng-show="!show">[ wtf? ]</div>
+      <div class="exp" ng-hide="!show" ng-click="show = false">
+        <p>Hi!</p>
+        <p>This is a visualization of the activity of the Bitcoin network.</p>
+        <p>Bitcoin is peer-to-peer currency.</p>
+        <p>It is backed by a global network of computers all speaking the same open-source protocol.</p>
+        <p>To move funds from one user to another, the sender creates a transaction and broadcasts it across the network.</p>
+        <p>Some computers, known as "Bitcoin miners", gather these transactions into blocks.</p>
+        <p>New bitcoin are rewarded to the miner with every block mined. The network adjusts the difficulty of mining so that new blocks are mined roughly every ten minutes.</p>
+        <p>Each new block contains a pointer to a previous block, and so forms the head of a chain of blocks pointing back to the first block ever mined.</p>
+        <p>The chain of blocks serves as a secure distributed ledger. Anyone can examine it to check how many bitcoin they have, as well as to verify that new transactions are valid.</p>
+        <p>You can learn more about Bitcoin <a href="https://www.weusecoins.com" ng-click="$event.stopPropagation()">here</a>.</p>
+        <p>Love,<br><a href="mailto:casey@rodarmor.com?subject=Bitcoin%20Visualization%20Feedback">Casey</a></p>
+        <p>PS: You can drive with the mouse, WASDEC, and the arrow keys.</p>
+      </div>
+
+    </div>
+    <canvas class="main"></canvas>
+
+    <div class="status">
+      <div ng-show="loading">Loading...</div>
+      <div ng-show="replay">{{replay | date:'medium'}}</div>
+      <div class="live" ng-click="live()" ng-show="replay">[ switch to live data ]</div>
+      <div ng-show="!replay">Connection: {{status}}</div>
+    </div>
+  </div>
+
+</div>

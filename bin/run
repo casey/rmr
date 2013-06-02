@@ -1,0 +1,36 @@
+#!/usr/bin/env python3.3
+
+import sys, subprocess, collections, signal
+
+def die(msg):
+  print(msg)
+  exit(1)
+
+def log(msg):
+  print("---> run: %s" % msg)
+
+if len(sys.argv) < 2:
+  die("usage: run path [arg ...]")
+
+cmd  = sys.argv[1:]
+path = sys.argv[1]
+args = sys.argv[2:]
+
+log("path:      %s" % path          )
+log("arguments: %s" % " ".join(args))
+
+results   = collections.deque(maxlen = 1000)
+iteration = 0
+
+while 1:
+  log("iteration %s" % iteration)
+  iteration += 1
+  try:
+    result = subprocess.call(cmd)
+    log("call returned: %s" % result)
+    results.append(result)
+  except KeyboardInterrupt:
+    log("ctrl-c: quitting")
+    exit(0)
+  except Exception as e:
+    log("caught some exception: %s" % e)

@@ -1,0 +1,89 @@
+#!env python
+
+# code name characters
+s = """
+48 0
+49 1
+50 2
+51 3
+52 4
+53 5
+54 6
+55 7
+56 8
+57 9
+
+65 a
+66 b
+67 c
+68 d
+69 e
+70 f
+71 g
+72 h
+73 i
+74 j
+75 k
+76 l
+77 m
+78 n
+79 o
+80 p
+81 q
+82 r
+83 s
+84 t
+85 u
+86 v
+87 w
+88 x
+89 y
+90 z
+
+37 left
+38 up
+39 right
+40 down
+
+32 space
+13 enter
+9  tab
+27 escape
+8  backspace
+
+16  shift
+17  control
+18  alt
+20  capslock
+144 numlock
+91  left_super
+93  right_super
+
+59  colon
+61  equal
+188 comma
+109 minus
+190 period
+191 slash
+192 backtick
+219 left_bracket
+220 backslash
+221 right_bracket
+222 apostrophe
+"""
+
+import string, json
+
+data = {}
+
+for line in s.split('\n'):
+  line = line.strip()
+
+  if not line:
+    continue
+
+  code, name = line.split()
+
+  data[name] = int(code)
+
+print json.dumps(data)

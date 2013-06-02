@@ -1,0 +1,118 @@
+  //require('midi');
+  var jmb = require('jmb');
+
+
+/*
+program drum pattern into computer
+rhythm game style guide
+
+joint
+bong
+pipe
+vaporize
+
+vaporize
+burn
+
+keef
+hash
+oil/dab
+
+glass
+metal
+*/
+
+define(function(require) {
+  //require('midi');
+  var jmb = require('jmb');
+
+  var scratch = {
+    path:     '/scratch',
+    template: require('text!./template.html')
+  };
+
+  var mapping = {
+    1: 12, 2: 13, 3: 14, 4: 15,
+    q: 8,  w: 9,  e: 10, r: 11,
+    a: 4,  s: 5,  d:  6, f:  7,
+    z: 0,  x: 1,  c:  2, v:  3
+  };
+
+  scratch.controller = function ($scope, $, rmr) {
+    $scope.n = 0;
+
+    jmb.init(function (ma) {
+      rmr.log('midi ready');
+      var ins  = ma.enumerateInputs();
+      var outs = ma.enumerateOutputs();
+      rmr.log('found ' + ins.length  + ' midi inputs');
+      rmr.log('found ' + outs.length + ' midi outputs');
+      var from = null;
+
+      for (var i = 0; i < ins.length; i++) {
+        var name = ins[i].deviceName;
+        rmr.log(name);
+        if (name === "OP-1 Midi Device") {
+          rmr.log('op-1 found at ' + i);
+          var op1 = ma.getInput(i);
+          op1.addEventListener("midimessage", function (msg) {
+            rmr.log('got message: ' + msg)
+            from.sendMIDIMessage(msg);
+          });
+        }
+      }
+
+
+      for (var i = 0; i < outs.length; i++) {
+        var name = outs[i].deviceName;
+        rmr.log(name);
+        if (name === "from_browser") {
+          rmr.log('from bus output found at ' + i);
+          from = ma.getOutput(i);
+        }
+      }
+
+      window.jmb = jmb;
+      window.ma  = ma;
+
+      window.from = from;
+      from === null && rmr.die('from bus not found!');
+
+      /*
+      from.addEventListener("midimessage", function (msg) {
+        rmr.log('got message: ' + msg)
+      });
+      */
+
+
+      $scope.$on('frame', function () {
+        if (rmr.key.space.pressed()) {
+          $scope.n = 0;
+        }
+
+        for (var c in mapping) {
+          var key  = rmr.key[c];
+          var note = mapping[c] + 36;
+
+          if (key.pressed())  {
+            //console.log(c, 'on',  note);
+            var msg = ma.createMIDIMessage(jmb.NOTE_ON, note, 100, 0, jmb.getTime());
+            console.log('on  message: ' + msg);
+            from.sendMIDIMessage(msg);
+            $scope.n++;
+          }
+
+          if (key.released()) {
+            //console.log(c, 'off', note);
+            var msg = ma.createMIDIMessage(jmb.NOTE_OFF, note, 64, 0, jmb.getTime());
+            console.log('off message: ' + msg);
+            from.sendMIDIMessage(msg);
+            $scope.n--; 
+          }
+        }
+      });
+    });
+  };
+
+  return scratch;
+});

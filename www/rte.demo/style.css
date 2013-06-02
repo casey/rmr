@@ -1,0 +1,47 @@
+.q0, .q1, .q2, .q3 {
+  width: 50%;
+  height: 50%;
+  position: absolute;
+}
+
+.q0 { left:  0; top:    0; }
+.q1 { right: 0; top:    0; }
+.q2 { left:  0; bottom: 0; }
+.q3 { right: 0; bottom: 0; }
+
+.left, .right {
+  width:    50%;
+  height:   100%;
+  position: absolute;
+}
+
+.left  { left:  0; }
+.right { right: 0; }
+
+html, body, .scene, .overlay {
+  width:  100%;
+  height: 100%;
+}
+
+body {
+  position: relative;
+}
+
+.scene, .overlay {
+  top: 0;
+  left: 0;
+  position: absolute;
+}
+
+.overlay {
+  z-index: 1;
+}
+
+.aperture {
+  top:        10px;
+  left:       10px;
+  width:      50px;
+  height:     50px;
+  position:   absolute;
+}
+

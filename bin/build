@@ -1,0 +1,27 @@
+#!/usr/bin/env zsh
+
+set -o nounset
+set -o errexit
+
+grep 435987185 bin/build &> /dev/null
+
+curl 'http://www.google-analytics.com/ga.js' > www/lib/ga.js
+
+rm -rf dist/
+mkdir dist
+
+rsync -avz --delete www/srv/ dist/srv
+
+cp www/index.html dist/index.html
+node bin/r.js -o etc/js.r.js
+node bin/r.js -o etc/css.r.js
+
+version=v$(git rev-parse --short HEAD).${RANDOM}
+
+mkdir dist/$version/
+
+mv dist/index.js  dist/$version/index.js
+mv dist/index.css dist/$version/index.css
+
+sed -Ei ''  "s:'(index[.]js)':'/$version/\\1':" dist/index.html
+sed -Ei '' "s:'(index[.]css)':'/$version/\\1':" dist/index.html

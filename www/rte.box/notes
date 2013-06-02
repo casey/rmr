@@ -1,0 +1,98 @@
+next generation tech:
+- c++ core
+- functional scripting in haskell with all IO being handled by a custom monad
+- dynamic scripting in javascript
+- fast compilation by separation of components:
+  - support modules
+  - component based engine
+  - haskell blobs implementing game logic
+- runs both in the browser via native client and via a normal plugin
+
+- find someone in the area to teach me controllerism/ableton, in exchange for programming lessons
+- friends of the box mailinglist (djs, producers, musicians, etc) control who is allowed to join/post to the list
+- weekly private jam session at culture box before it opens
+- weekly maker/creative people meetup at the box- shaders
+
+hanging strings of color
+
+
+- 2d canvas
+- divs
+
+- layers - overdrawing - z division
+- filters - modification
+- panes - division of x/y division
+  - can scale a pane while it resizes or can crop it
+  - can keep proportions or can distort it
+- x/y/z division, 3d boxes
+
+- color schemes
+- framework for doing low-resolution (40 x 80 -> 50 x 100) prototypes
+- framework for multiplexing the screen into subscreens
+- plan for the whole club
+
+particle system
+something with a 3d box that extends into the screen
+something with voxels
+really nice waveform, spectrogram, levels
+single pulsing colors
+
+modes
+effect
+styles
+
+spend a lot of time watching DJs
+
+replicate the dj from upstairs to downstairs
+
+
+test the latency of native client. i'm sick to death of js. i can keep using it for scaffolding and rapid prototyping.
+
+or really, maybe i should just keep going with js. fuck, who knows.
+
+latency testing:
+- js
+- nacl
+- native
+
+input:
+- audio
+- messages
+
+work:
+- fft
+- rendering
+
+output:
+- audio
+- graphics
+- messages
+
+rows of shapes, illumination dot moving across them according to the intensity of that frequency. squares, triangles, or voronoi graphs
+
+ ---
+|   |
+|   |
+|   |
+ ---
+ 
+get a job doing something
+
+Inventory everything in the club: network, computers, lights, power, etc
+Plex
+Full erosion, tunneling sim, lasts whole night, plants, worms, dwarves, surface dwellers
+Color change over night, intensity, measure crowd, volume, participation
+come up with a few color palettes with red as the main color
+github.com/casey/box - cbox
+plex, see it live in the browser
+tap to split, preview touch screen, color schemes (red is "white")
+
+if i have latency problems with js/webgl/native client, get in touch with the people on chrome who can help me fix them
+
+some kind of subdivision of the screen into rectangular sections. allow recursive subdivision. each subdivision perfectly multiplexes its own resources. - optionally do something with borders
+
+Need a way to measure latency and jitter:
+
+water sim flowing outward, boxes a la dreamworks screensaver, gravity sim (maybe combine with liquid sim), game of life, smooth life, 2d life, very complex text/graphs/fake computer display (all possible data from host computer, fps, ram, cpu, procs, etc), some kind of notion of activity and time
+
+

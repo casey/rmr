@@ -1,0 +1,34 @@
+.base, body, html, .base > canvas, .overlay {
+  width:  100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.base, .overlay {
+  top: 0;
+  left: 0;
+  position: absolute;
+}
+
+.overlay {
+  color: white;
+  z-index: 1;
+}
+
+.q0, .q1, .q2, .q3 {
+  width: 50%;
+  height: 25%;
+  position: absolute;
+}
+
+.q0 { left:  0; top:    0; }
+.q1 { right: 0; top:    0; }
+.q2 { left:  0; bottom: 0; }
+.q3 { right: 0; bottom: 0; }
+
+.bottom {
+  width:    100%;
+  height:   75%;
+  position: absolute;
+  bottom: 0;
+}

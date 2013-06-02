@@ -1,0 +1,14 @@
+extract the exact packet timing from the package dumps
+continuously vary the framerate from 0 fps to 60 fps and see where it breaks
+
+screen:
+- perhaps the timing is very crucial, and needs to be exact
+- why am i one+ frame behind?
+- wtf is up with that weird jump?
+- why does it sometimes render multiple frames at the same time?
+- should i have two sockets, one for frames and one for nulls?
+- try varying the PWM frequency divider
+- try sending each packet twice or three times, with and without nulls
+- figure out the lookup table/proper curve
+- create a test video that flashes black and white
+- better replay tools: name payloads, optional nulls

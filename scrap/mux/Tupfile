@@ -1,0 +1,17 @@
+LINKFLAGS += -framework Foundation
+#LINKFLAGS += -framework Accelerate
+#LINKFLAGS += -framework AudioToolbox
+#LINKFLAGS += -framework CoreMedia
+#LINKFLAGS += -framework CoreAudio
+#LINKFLAGS += -framework CoreVideo
+#LINKFLAGS += -framework CoreData
+#LINKFLAGS += -framework AVFoundation
+#LINKFLAGS += -framework CoreServices
+#LINKFLAGS += -framework Syphon
+#LINKFLAGS += -framework OpenGL
+#LINKFLAGS += -framework AppKit
+#LINKFLAGS += -framework Cocoa
+
+CXXFLAGS += -I../dat/twitch-sdk/include
+CXXFLAGS += -I../dat/twitch-sdk/twitchcore/include
+CXXFLAGS += -I../dat/twitch-sdk/twitchchat/include

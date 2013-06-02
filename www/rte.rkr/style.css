@@ -1,0 +1,14 @@
+body {
+  background: #555;
+}
+
+canvas.main {
+  left:   24px;
+  top:    24px;
+  width:  960px;
+  height: 540px;
+}
+
+tt {
+  color: white;
+}

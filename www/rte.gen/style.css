@@ -1,0 +1,27 @@
+html, body, .scene, .overlay {
+  width:  100%;
+  height: 100%;
+}
+
+body {
+  position: relative;
+}
+
+.scene, .overlay {
+  top: 0;
+  left: 0;
+  position: absolute;
+}
+
+.overlay {
+  z-index: 1;
+}
+
+.aperture {
+  top:        10px;
+  left:       10px;
+  width:      50px;
+  height:     50px;
+  position:   absolute;
+}
+

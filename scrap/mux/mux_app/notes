@@ -1,0 +1,15 @@
+/Users/buildslave/workspace/release/build/twitchsdk/source/framewriter.cpp:121: failed assertion `(( (ret) <= TTV_EC_SUCCESS))'
+
+- don't rely on osx to keep it running
+- update remotely without having to use the macbook air
+- make as few changes to the mux as possible
+
+- get window size to be correct
+- figure out that random encoder crash
+- maybe use async pbos for better performance
+- make a release compile and put in Applications
+- try out twitch release library
+
+whitelisted client - http://www.twitch.tv/kraken/oauth2/clients/35621 (romrador)
+
+option for connectivity: https://www.facebook.com/danielstroem

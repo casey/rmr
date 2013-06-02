@@ -1,0 +1,19 @@
+from waflib.TaskGen import feature, after
+from waflib.Task import Task
+from waflib.Tools import c_preproc
+
+@feature('cxx')
+@after('apply_link')
+def process_pch(self):
+  if getattr(self, 'pch', ''):
+    nodes = self.to_nodes(self.pch)
+    for x in nodes:
+      self.create_task('pchx', x, x.change_ext('.h.pch'))
+
+class pchx(Task):
+  run_str = '${CXX} -x c++-header -std=c++1y -stdlib=libc++ -g ${FRAMEWORKPATH_ST:FRAMEWORKPATH} ${CPPPATH_ST:INCPATHS} ${DEFINES_ST:DEFINES} ${CXX_SRC_F}${SRC} ${CXX_TGT_F}${TGT}'
+  scan    = c_preproc.scan
+  ext_out = ['.h']
+  color   = 'BLUE'
+from waflib.Task import update_outputs
+update_outputs(pchx)

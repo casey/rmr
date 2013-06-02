@@ -1,0 +1,25 @@
+the simplest type of events are beats
+
+
+. start tapping beat
+. guesses bpm and continues beat
+. can correct beat if it drifts
+
+
+effects:
+- blur on high volume
+- invert
+- greyscale/color drain on high volume, color drain on low volume
+
+signal types
+- on/off
+- beat
+
+should i just use max?
+
+real-time visual graph effect interface
+- assemble nodes
+- delay nodes
+- some way to construct the 1/1 1/2 1/3 1/4 interface on the fly
+- source node
+- how to reduce user error?

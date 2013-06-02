@@ -1,0 +1,68 @@
+gear:
+  ear plugs
+
+  projector
+  projector power cord
+  projector lens cap
+  portrait platform
+  projector adapter - both sides, screws, allen wrench
+
+  hdmi cable
+  hdmi -> mini dvi adaptor
+
+  audio cable 
+  1/4" to 1/8" adapter
+
+  3d controller
+
+  laptop + charger
+  phone + charger
+
+  headphones
+  earbuds
+
+  gopro - mount, charging cable, power adapter
+  
+  power strip
+
+setup:
+  make sure cfg settings are correct
+  make sure cfg_quick is turned off
+  check for outstanding git diffs
+  turn off fps graph
+
+  push latest version of code to web/git
+  test the web version
+
+  set up soundflower
+  hook up and test 3d joystick
+  hook up and test audio to line-in
+  charge phone
+  take cheat-sheet picture
+  kill all apps
+  pick a good desktop background
+  turn wifi off
+  screensaver + sleep off
+  remove all chrome history
+  turn off chrome auto-update
+  turn off fb/gmail notifications
+  restart laptop
+  restart chrome
+
+projector settings:
+  fan - L1
+  fan control - On 2
+  power management - off
+  zoom
+  focus
+
+deep east:
+  put notes onto phone
+  turn off/remove as many of the lights as possible
+  ask johnny if he can record all the audio
+  make marks that separate the different areas of the screen
+  position and activate dj mask square
+  offset element so image is centered on wall
+  adjust transforms and scale for better visibility
+  test all the modes, hopefully covertly
+  start taping - delete all files, gopro at less than 1080p

@@ -1,0 +1,18 @@
+video fallback: high resolution, fps, baked data, cool angles
+
+better error if webgl isn't supported
+message that shows new blocks
+message that shows new transactions
+camera animation that shows off different angles
+
+audio:
+  audio toggle button
+  3d positional audio
+  sound while block is gathering
+  gamelan/bells/banjo/wind chimes
+  sound from the end of here: http://www.youtube.com/watch?v=g0j2dVuhr6s
+  thursday afternoon
+  rainbow in curved air
+  tx sounds like rain
+  ambient beat + only add tx/blocks on beat
+  audio toggle on overlay, remember setting

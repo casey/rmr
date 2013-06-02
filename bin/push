@@ -1,0 +1,28 @@
+#!env zsh
+
+set -o nounset
+set -o errexit
+
+# run "s3cmd --configure" to give it s3cmd whatever credentials it needs
+
+grep 435987185 bin/push &> /dev/null
+
+rsync -avz --delete dist/ s3/
+
+gzip --recursive s3/
+
+for file in ./s3/**/*.gz; do
+  mv $file ${file%.gz}
+done
+
+find s3 -type f -regex "s3/v.*/.*" | sed -E 's:s3/(.*):\1:' > tmp/cached
+
+s3cmd sync --delete-removed --exclude-from=tmp/cached --acl-public \
+  --add-header="Cache-Control: max-age=0, must-revalidate"		 \
+  --add-header="Content-Encoding: gzip"		 \
+	s3/ s3://romrador.com
+
+s3cmd sync --delete-removed --include-from=tmp/cached  --acl-public \
+  --add-header="Cache-Control: max-age=29030400, public"		 \
+  --add-header="Content-Encoding: gzip"		 \
+	s3/ s3://romrador.com

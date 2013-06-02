@@ -1,0 +1,43 @@
+later:
+- adjust for non-linear loudness perception
+- make intensity reflect both sudden volume changes and long term changes in overall loudness
+- take into account the fact that i have absolutely no control over the volume level
+
+
+
+to casper:
+
+you can drag images all at once or one at a time. new images will be added to the end of the sequence. to reset, just refresh the page
+
+send both sets of test images
+
+i can probably tweak the way that anything works, so don't be shy if you want something to be different! If it's really hard for me to do, or might have unintended consequences I'll tell you :)
+
+remember that we're dealing with lights here
+- light pixels will be more intensely lit
+- dim pixels will sort of have the same color, but will just be less bright
+- light pixels will appear bigger, since they'll bleed
+- mention how light image doesn't really work
+
+if the image is larger than 80x45, it'll just use the upper left 80x45 pixel region of the image
+
+it actually works pretty well with sequences of totally random images
+
+i can change the way the the current audio intensity is calculated, if you don't like the way that it's picking frames.
+- i can make it so that it never skips frames. for example, if the intensity suddenly gets higher it might jump from frame 0 to frame 5, skipping frames 1-4. i can easily make it so that it'll never skip frames
+
+installation:
+
+- install soundflower
+- install line in
+- go to System Preferences > Sound > Output tab
+  before selecting "Soundflower (2ch)", make sure the volume is high
+  select "Soundflower (2ch)"
+- open line in
+  "input from:" should be on "Soundflower (2ch)"
+  "output to:" should be "Built-in Output: Headphones" or "Default System Output"
+- go to romrador.com/rkr with Chrome
+  click "allow" to let it use your microphone
+  in the url bar there should be a tiny camera icon on the right
+  click it, and in the microphone dropdown select "Soundflower (2ch)"
+  reload the page and click allow again
