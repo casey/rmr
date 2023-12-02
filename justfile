@@ -1,4 +1,4 @@
-export ZDOTDIR = './'
+export ZDOTDIR := './'
 
 sloc:
 	@printf "www: "
